@@ -11,13 +11,14 @@ import vueRouter from 'vue-router';
 // 3.0.1 将vueRouter对象绑定到Vue对象上；
 Vue.use(vueRouter);
 // 3.0.2 导入路由规则对应的组件对象
-import login from './components/account/login.vue';
-import register from './components/account/register.vue';
+import home from './components/home.vue';
+import shopcar from './components/shopcar/shopcar.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
+    linkActiveClass: 'mui-active', //改变路由激活时的class名称
     routes: [
-        {path: '/login', component: login},
-        {path: '/register', component: register}
+        {path: '/home', component: home},
+        {path: '/shopcar', component: shopcar}
     ]
 });
 
@@ -30,6 +31,13 @@ Vue.use(mintui);
 
 // 5.0 注册 mui的css样式
 import '../statics/mui/css/mui.css';
+
+// 6.0 当前系统的全局基本样式
+import '../statics/css/site.css';
+
+// 7.0 将vue-resource 在vue中绑定，自动在vue对象实例上注册一个$http对象就可以使用。
+import vueResource from 'vue-resource';
+Vue.use(vueResource);
 
 // 6.0 将App中的内容编译解析出来替换index.html中的<div id="app"></div>
 new Vue({
