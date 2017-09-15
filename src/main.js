@@ -13,12 +13,15 @@ Vue.use(vueRouter);
 // 3.0.2 导入路由规则对应的组件对象
 import home from './components/home.vue';
 import shopcar from './components/shopcar/shopcar.vue';
+import newslist from './components/news/newslist.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
     routes: [
+        {path: '/', redirect: '/home'},
         {path: '/home', component: home},
-        {path: '/shopcar', component: shopcar}
+        {path: '/shopcar', component: shopcar},
+        {path: '/news/newslist', component: newslist}
     ]
 });
 
@@ -39,7 +42,13 @@ import '../statics/css/site.css';
 import vueResource from 'vue-resource';
 Vue.use(vueResource);
 
-// 6.0 将App中的内容编译解析出来替换index.html中的<div id="app"></div>
+// 8.0 定义全局过滤器
+import moment from 'moment'; // 导入momentjs 来格式化时间
+Vue.filter('datafmt', function (input, fmtstring) {
+    return moment(input).format(fmtstring);
+});
+
+// 9.0 将App中的内容编译解析出来替换index.html中的<div id="app"></div>
 new Vue({
     el: '#app',
     router, //实际写法为router:router
