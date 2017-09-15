@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a16990f6-f8bb-44fc-b9f4-348dec0e2317" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/kits/commen.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/account/login.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/account/register.vue" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/home.vue" afterPath="$PROJECT_DIR$/src/components/home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/news/newsinfo.vue" afterPath="$PROJECT_DIR$/src/components/news/newsinfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/news/newslist.vue" afterPath="$PROJECT_DIR$/src/components/news/newslist.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -414,7 +408,7 @@
       <workItem from="1505355067986" duration="12972000" />
       <workItem from="1505402928439" duration="507000" />
       <workItem from="1505435718681" duration="6961000" />
-      <workItem from="1505461382108" duration="5324000" />
+      <workItem from="1505461382108" duration="5359000" />
     </task>
     <task id="LOCAL-00001" summary="add home module.">
       <created>1505397123407</created>
@@ -430,11 +424,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505478563822</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add kits/commen.js module.">
+      <created>1505479268122</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1505479268122</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47415000" />
+    <option name="totallyTimeSpent" value="47450000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -496,7 +497,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add home module." />
     <MESSAGE value="add newsinfo module." />
-    <option name="LAST_COMMIT_MESSAGE" value="add newsinfo module." />
+    <MESSAGE value="add kits/commen.js module." />
+    <option name="LAST_COMMIT_MESSAGE" value="add kits/commen.js module." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
