@@ -14,6 +14,7 @@
 
 <script>
     import {Toast} from 'mint-ui';
+    import common from '../../kits/commen.js';
     export default{
         data(){
             return {
@@ -29,7 +30,7 @@
         },
         methods: {
             getnewsinfo(){
-                var url = 'http://apis.juhe.cn/cook/query?key=1064affa3a04600037211734cd92d7cf&menu=%E8%A5%BF%E7%BA%A2%E6%9F%BF&rn=5&pn=0';
+                var url = common.apidomain;
                 this.$http.jsonp(url).then(function (response) {
                     var body = response.body;
                     if (body.resultcode != 200) {
@@ -40,6 +41,7 @@
                     for (var i = 0; i <= infors.length; i++) {
                         if (this.id == infors[i].id) {
                             this.info = infors[i];
+                            return;
                         }
                     }
                 });

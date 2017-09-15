@@ -11,30 +11,42 @@
         <!--2.0 MUI实现导航-->
         <div class="mui-content">
             <ul class="mui-table-view mui-grid-view mui-grid-9">
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/news/newslist">
-                    <span class="mui-icon mui-icon-home"></span>
-                    <div class="mui-media-body">新闻资讯</div>
-                </router-link></li>
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/photo/photolist">
-                    <span class="mui-icon mui-icon-email"></span>
-                    <div class="mui-media-body">图片分享</div>
-                </router-link></li>
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/goods/goodslist">
-                    <span class="mui-icon mui-icon-chatbubble"></span>
-                    <div class="mui-media-body">商品购买</div>
-                </router-link></li>
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/feedback">
-                    <span class="mui-icon mui-icon-location"></span>
-                    <div class="mui-media-body">留言反馈</div>
-                </router-link></li>
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/video">
-                    <span class="mui-icon mui-icon-search"></span>
-                    <div class="mui-media-body">视频专区</div>
-                </router-link></li>
-                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/callus">
-                    <span class="mui-icon mui-icon-phone"></span>
-                    <div class="mui-media-body">联系我们</div>
-                </router-link></li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/news/newslist">
+                        <span class="mui-icon mui-icon-home"></span>
+                        <div class="mui-media-body">新闻资讯</div>
+                    </router-link>
+                </li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/photo/photolist">
+                        <span class="mui-icon mui-icon-email"></span>
+                        <div class="mui-media-body">图片分享</div>
+                    </router-link>
+                </li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/goods/goodslist">
+                        <span class="mui-icon mui-icon-chatbubble"></span>
+                        <div class="mui-media-body">商品购买</div>
+                    </router-link>
+                </li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/feedback">
+                        <span class="mui-icon mui-icon-location"></span>
+                        <div class="mui-media-body">留言反馈</div>
+                    </router-link>
+                </li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/video">
+                        <span class="mui-icon mui-icon-search"></span>
+                        <div class="mui-media-body">视频专区</div>
+                    </router-link>
+                </li>
+                <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                    <router-link to="/callus">
+                        <span class="mui-icon mui-icon-phone"></span>
+                        <div class="mui-media-body">联系我们</div>
+                    </router-link>
+                </li>
             </ul>
         </div>
     </div>
@@ -42,6 +54,7 @@
 
 <script>
     import {Toast} from 'mint-ui';
+    import common from '../kits/commen.js';
     export default({
         data(){
             return {
@@ -70,7 +83,7 @@
             getimgs(){
                 //实现轮播组件中的数据请求
                 // 1.0 确定URL
-                var url = 'http://apis.juhe.cn/cook/query?key=1064affa3a04600037211734cd92d7cf&menu=%E8%A5%BF%E7%BA%A2%E6%9F%BF&rn=3&pn=0';
+                var url = common.apidomain;
                 this.$http.jsonp(url).then(function (response) {
                     var data = response.body;
                     //错误处理
