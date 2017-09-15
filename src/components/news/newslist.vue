@@ -3,7 +3,7 @@
         <!-- 1.0实现新闻资讯列表样式-->
         <ul class="mui-table-view">
             <li @click="count+=1" v-for="item in list" class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
+                <router-link v-bind="{to:'/news/newsinfo/'+item.id}">
                     <img class="mui-media-object mui-pull-left" :src="item.albums">
                     <div class="mui-media-body">
                         {{ item.title }}
@@ -13,7 +13,7 @@
                             <span class="click">点击数：{{count}}</span>
                         </div>
                     </div>
-                </a>
+                </router-link>
             </li>
         </ul>
     </div>

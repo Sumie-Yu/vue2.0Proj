@@ -14,6 +14,7 @@ Vue.use(vueRouter);
 import home from './components/home.vue';
 import shopcar from './components/shopcar/shopcar.vue';
 import newslist from './components/news/newslist.vue';
+import newsinfo from './components/news/newsinfo.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
@@ -21,7 +22,8 @@ var router = new vueRouter({
         {path: '/', redirect: '/home'},
         {path: '/home', component: home},
         {path: '/shopcar', component: shopcar},
-        {path: '/news/newslist', component: newslist}
+        {path: '/news/newslist', component: newslist},
+        {path: '/news/newsinfo/:id', component: newsinfo}
     ]
 });
 
