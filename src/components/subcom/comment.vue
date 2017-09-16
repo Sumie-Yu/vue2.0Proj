@@ -5,7 +5,7 @@
             <h3>提交评论</h3>
             <p></p>
             <textarea placeholder="请评论..." v-model="postconcent"></textarea>
-            <mt-button type="primary" size="large">发表评论</mt-button>
+            <mt-button @click="postcomment" type="primary" size="large">发表评论</mt-button>
         </div>
 
         <!--获取评论列表-->
@@ -24,6 +24,9 @@
                 </ul>
             </div>
         </div>
+
+        <mt-button @click="getmore" type="danger" size="large" plain>加载更多</mt-button>
+
     </div>
 </template>
 
@@ -34,33 +37,42 @@
             return {
                 list: [],
                 postconcent: '',
-                ctime: new Date()
+                ctime: new Date(),
+                pageindex: 1
             };
         },
         created(){
-            this.getcommentlist(1);
+            this.getcommentlist(this.pageindex);
         },
         props: ['id'], //用来接收父组件传递过来的ID
         methods: {
+            getmore(){
+                this.pageindex++;
+            },
             getcommentlist(pageindex){
-                pageindex = pageindex | 1;
+                pageindex = pageindex || 1;
                 var url = 'http://119.23.236.253:9090/api/getcomments';
                 this.$http.get(url).then(function (res) {
-                    this.list = res.body;
+                    this.list = this.list.concat(res.body);
                 });
             },
-            /*            postcomment(){
-             if (this.postconcent.trim().length <= 0) {
-             Toast('评论内容不能为空!');
-             return;
-             }
-             var url = 'http://119.23.236.253:9090/api/postcomments';
-             this.$http.post(url, {content: this.postconcent}, {emulateJSON: true}).then(function (res) {
-             console.log(res.body);
-             Toast('success!');
-             this.postconcent = '';
-             });
-             }*/
+            postcomment(){
+                if (this.postconcent.trim().length <= 0) {
+                    Toast('评论内容不能为空!');
+                    return;
+                }
+                var url = 'http://127.0.0.1:9090/api/addComment';
+                this.$http.post(url, {content: this.postconcent}, {emulateJSON: true}).then(function (res) {
+                    console.log(res.body);
+                    Toast('评论提交ok!');
+                    this.list = [{
+                        'userName': 'Paki',
+                        'addTime': new Date(),
+                        'content': this.postconcent
+                    }].concat(this.list);
+                    this.postconcent = '';
+                });
+            }
         }
     };
 </script>
