@@ -21,7 +21,7 @@
 
 <script>
     import {Toast} from 'mint-ui';
-    import common from '../../kits/commen.js';
+    import common from '../../kits/common.js';
     export default({
         data(){
             return {

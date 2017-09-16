@@ -49,6 +49,9 @@ import moment from 'moment'; // 导入momentjs 来格式化时间
 Vue.filter('datafmt', function (input, fmtstring) {
     return moment(input).format(fmtstring);
 });
+Vue.filter('json', function (input) {
+    return JSON.stringify(input);
+});
 
 // 9.0 将App中的内容编译解析出来替换index.html中的<div id="app"></div>
 new Vue({
