@@ -3,10 +3,12 @@
         <!--图片分类-->
         <div id="cate">
             <ul v-bind="{style:'width:'+ ulWidth + 'px'}">
-                <li @click="getimages(0)">全部</li>
-                <li v-for="item in cates"
-                    @click="getimages(item.id)">
+                <span>菜谱</span>
+                <li v-for="(item,index) in cates"
+                    :index="index"
+                    @click="getimages(index)">
                     {{item.title}}
+
                 </li>
             </ul>
         </div>
@@ -15,12 +17,12 @@
         <div id="imglist">
             <ul>
                 <li v-for="imgitem in list">
-                    <router-link v-bind="{to:'/photo/photoinfo/'+ imgitem.id}">
+                    <router-link v-bind="{to:'/photo/photoinfo/'+ imgitem.id}" to="/photo/photoinfo:id">
                         <div id="desc">
-                            <h5 v-text="imgitem.ingredients"></h5>
-                            <p v-text="imgitem.burden"></p>
+                            <!--<h5 v-text="imgitem.ingredients"></h5>-->
+                            <p v-text="imgitem.step"></p>
                         </div>
-                        <img :src="imgitem.albums">
+                        <img v-lazy="imgitem.img">
                     </router-link>
                 </li>
             </ul>
@@ -42,8 +44,8 @@
         },
         created(){
             this.getcates();
-            var all = 0;
-            this.getimages(all);
+            var index = 0;
+            this.getimages(index);
         },
         methods: {
             getcates(){
@@ -61,15 +63,16 @@
                      console.log('cates' + str)*/
                 });
             },
-            getimages(cateid){
-                cateid = cateid || 0;
+            getimages(index){
+                //cateid = cateid || 0;
                 var url = common.apidomain;
                 this.$http.jsonp(url).then(function (res) {
                     if (res.body.resultcode != 200) {
                         Toast('Wrong!!');
                         return;
                     }
-                    this.list = res.body.result.data;
+                    var data = res.body.result.data;
+                    this.list = data[index].steps;
                 });
             }
         },

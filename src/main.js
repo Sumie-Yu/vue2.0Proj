@@ -16,6 +16,7 @@ import shopcar from './components/shopcar/shopcar.vue';
 import newslist from './components/news/newslist.vue';
 import newsinfo from './components/news/newsinfo.vue';
 import photolist from './components/photo/photolist.vue';
+import photoinfo from './components/photo/photoinfo.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
@@ -25,7 +26,8 @@ var router = new vueRouter({
         {path: '/shopcar', component: shopcar},
         {path: '/news/newslist', component: newslist},
         {path: '/news/newsinfo/:id', component: newsinfo},
-        {path: '/photo/photolist', component: photolist}
+        {path: '/photo/photolist', component: photolist},
+        {path: '/photo/photoinfo/:id', component: photoinfo}
     ]
 });
 

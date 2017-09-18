@@ -2,7 +2,7 @@
     <div id="tmpl" @click="count += 1">
         <!--1.0 实现新闻详情-->
         <div class="title">
-            <h4 v-text="info.title"></h4>
+            <h4 v-text="info.title">{{id}}</h4>
             <p>
                 <span>{{ ctime | datafmt('YYYY-MM-DD HH:mm:ss')}}</span>
                 <span>{{count}}次浏览</span>
