@@ -6,7 +6,7 @@
                 <li @click="getimages(0)">全部</li>
                 <li v-for="item in cates"
                     @click="getimages(item.id)">
-                    {{item.title}}
+                    {{item.name}}
                 </li>
             </ul>
         </div>
@@ -17,10 +17,10 @@
                 <li v-for="imgitem in list">
                     <router-link v-bind="{to:'/photo/photoinfo/'+ imgitem.id}">
                         <div id="desc">
-                            <h5 v-text="imgitem.ingredients"></h5>
-                            <p v-text="imgitem.burden"></p>
+                            <h5 v-text="imgitem.name"></h5>
+                            <p v-text="imgitem.des"></p>
                         </div>
-                        <img :src="imgitem.albums">
+                        <img v-lazy="imgitem.img">
                     </router-link>
                 </li>
             </ul>
@@ -48,12 +48,8 @@
         methods: {
             getcates(){
                 var url = common.apidomain;
-                this.$http.jsonp(url).then(function (res) {
-                    if (res.body.resultcode != 200) {
-                        Toast('Wrong!!');
-                        return;
-                    }
-                    this.cates = res.body.result.data;
+                this.$http.get(url).then(function (res) {
+                    this.cates = res.body.showapi_res_body.list;
                     var w = 94;
                     var count = this.cates.length + 1;
                     this.ulWidth = w * count;
@@ -64,12 +60,8 @@
             getimages(cateid){
                 cateid = cateid || 0;
                 var url = common.apidomain;
-                this.$http.jsonp(url).then(function (res) {
-                    if (res.body.resultcode != 200) {
-                        Toast('Wrong!!');
-                        return;
-                    }
-                    this.list = res.body.result.data;
+                this.$http.get(url).then(function (res) {
+                    this.list = res.body.showapi_res_body.list;
                 });
             }
         },

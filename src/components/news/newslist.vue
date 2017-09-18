@@ -4,10 +4,10 @@
         <ul class="mui-table-view">
             <li @click="count+=1" v-for="item in list" class="mui-table-view-cell mui-media">
                 <router-link v-bind="{to:'/news/newsinfo/'+item.id}">
-                    <img class="mui-media-object mui-pull-left" :src="item.albums">
+                    <img class="mui-media-object mui-pull-left" :src="item.img">
                     <div class="mui-media-body">
-                        {{ item.title }}
-                        <p class='mui-ellipsis'>{{ item.burden }}</p>
+                        {{ item.name }}
+                        <p class='mui-ellipsis'>{{ item.des }}</p>
                         <div class="ft">
                             <span>发表时间：{{ctime | datafmt('YYYY-MM-DD HH:mm:ss')}}</span>
                             <span class="click">点击数：{{count}}</span>
@@ -86,13 +86,13 @@
         methods: {
             getnewslist(){
                 var url = common.apidomain;
-                this.$http.jsonp(url).then(function (response) {
-                    var data = response.body;
-                    if (data.resultcode != 200) {
-                        Toast(data.reason);
+                this.$http.get(url).then(function (response) {
+                    var body = response.body;
+                    if (body.showapi_res_code != 0) {
+                        Toast(body.showapi_res_error);
                         return;
                     }
-                    this.list = data.result.data;
+                    this.list = body.showapi_res_body.list;
                 });
             }
         }

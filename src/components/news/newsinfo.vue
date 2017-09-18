@@ -1,14 +1,14 @@
 <template>
-    <div id="tmpl" @click="count += 1">
+    <div id="tmpl">
         <!--1.0 实现新闻详情-->
         <div class="title">
-            <h4 v-text="info.title">{{id}}</h4>
+            <h4 v-text="info.name">{{id}}</h4>
             <p>
                 <span>{{ ctime | datafmt('YYYY-MM-DD HH:mm:ss')}}</span>
-                <span>{{count}}次浏览</span>
+                <span>{{ info.view }}次浏览</span>
             </p>
         </div>
-        <div class="content" v-text="info.imtro"></div>
+        <div class="content" v-text="info.cpdes"></div>
         <!-- 2.0 实现评论组件的集成-->
         <comment :id="id"></comment>
 
@@ -37,24 +37,20 @@
         },
         methods: {
             getnewsinfo(){
-                var url = common.apidomain;
-                this.$http.jsonp(url).then(function (response) {
-                    var body = response.body;
-                    if (body.resultcode != 200) {
-                        Toast(data.reason);
-                        return;
+                var url = common.apidomaindetail + '&id=' + this.id;
+                this.$http.get(url).then(function (response) {
+                        var body = response.body;
+                        this.info = body.showapi_res_body.details;
+                            /*var infors = body.result.data;
+                             for (var i = 0; i <= infors.length; i++) {
+                             if (this.id == infors[i].id) {
+                             this.info = infors[i];
+                             return;*/
                     }
-                    var infors = body.result.data;
-                    for (var i = 0; i <= infors.length; i++) {
-                        if (this.id == infors[i].id) {
-                            this.info = infors[i];
-                            return;
-                        }
-                    }
-                });
+                )
             }
         }
-    };
+    }
 </script>
 
 <style scoped>

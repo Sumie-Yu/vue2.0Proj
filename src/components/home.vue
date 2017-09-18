@@ -4,7 +4,7 @@
         <!--1.0 Mint UI 轮播图-->
         <mt-swipe :auto="2000">
             <mt-swipe-item v-for="item in list">
-                <img :src="item.albums">
+                <img :src="item.img">
             </mt-swipe-item>
         </mt-swipe>
 
@@ -59,20 +59,6 @@
         data(){
             return {
                 list: []
-                /*                list: [
-                 {
-                 "url": "",
-                 "img": "https://img14.360buyimg.com/babel/jfs/t8662/51/903166445/124639/a6cf1328/59b13c19Ne9707153.jpg"
-                 },
-                 {
-                 "url": "",
-                 "img": "https://img1.360buyimg.com/da/jfs/t9181/141/1198104284/151697/caaa1a0d/59b6369bN03fc61f7.jpg"
-                 },
-                 {
-                 "url": "",
-                 "img": "https://img12.360buyimg.com/da/jfs/t8926/111/400186648/32793/26047069/59a7a48dNf1d0e98e.jpg"
-                 }
-                 ]*/
             }
         },
         created(){
@@ -84,15 +70,12 @@
                 //实现轮播组件中的数据请求
                 // 1.0 确定URL
                 var url = common.apidomain;
-                this.$http.jsonp(url).then(function (response) {
-                    var data = response.body;
-                    //错误处理
-                    if (data.resultcode != 200) {
-                        Toast(data.reason);
-                        return;
+                this.$http.get(url).then(function (response) {
+                    var body = response.body;
+                    if (body.showapi_res_code != 0) {
+                        Toast('Wrong!!!');
                     }
-                    //如果服务器返回的数据正常，则赋值给message
-                    this.list = data.result.data;
+                    this.list = body.showapi_res_body.list;
                 });
             }
         }

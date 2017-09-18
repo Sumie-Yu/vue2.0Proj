@@ -4,26 +4,25 @@
         <div id="desc">
             <!--1)图片详情-->
             <div class="title">
-                <h4>{{photoinfo.title}}</h4>
+                <h4>{{photoinfo.name}}</h4>
                 <span>{{date | datafmt('YYYY-MM-DD HH:mm:ss')}}</span>
-                <span @click="count += 1">{{count}}次浏览</span>
+                <span>{{photoinfo.view}}次浏览</span>
+                <span>{{photoinfo.collection}}次收藏</span>
                 <p class="line"></p>
             </div>
-            <p>简介：{{photoinfo.tags}}</p>
-            <p>材料：{{photoinfo.ingredients}}</p>
-            <p>调料：{{photoinfo.burden}}</p>
+            <p>简介：{{photoinfo.cpdes}}</p>
+            <p>材料：{{photoinfo.marinade}}</p>
             <!--2)图片缩略图-->
             <div class="mui-content">
                 <ul class="mui-table-view mui-grid-view mui-grid-9">
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
                         <a href="#">
-                            <img src="http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/1/37_6afdc9c4afbb6173.jpg">
+                            <img src="http://images.meishij.net/p/20121112/65907b2c9c55b96276aeed7f940ab981.jpg">
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-
         <!--2.0 集成评论组件-->
         <div id="comment">
             <comment :id="id"></comment>
@@ -34,7 +33,7 @@
 <script>
     /*导入评论组件 => 注册评论组件 => 使用评论组件*/
     import comment from '../subcom/comment.vue';
-    import commen from '../../kits/common'
+    import common from '../../kits/common'
     import {Toast} from 'mint-ui';
     export default{
         components: {
@@ -55,24 +54,14 @@
         methods: {
             /*获取图片详细描述数据*/
             getinfo(){
-                var url = commen.apidomain;
-                this.$http.jsonp(url).then(function (res) {
-                    var body = res.body;
-                    if (body.resultcode != 200) {
-                        Toast('wrong!!!');
-                        return;
+                var url = common.apidomaindetail + '&id=' + this.id;
+                this.$http.get(url).then(function (response) {
+                        var body = response.body;
+                        this.photoinfo = body.showapi_res_body.details;
                     }
-                    var photoinfors = body.result.data;
-                    for (var i = 0; i <= photoinfors.length; i++) {
-                        if (this.id == photoinfors[i].id) {
-                            this.photoinfo = photoinfors[i];
-                            return;
-                        }
-                    }
-                });
+                )
             }
         }
-
     };
 </script>
 
@@ -89,6 +78,8 @@
     #desc .title span {
         color: rgba(0, 0, 0, 0.4);
         margin-top: 10px;
+        font-size: 12px;
+        padding-right: 15px;
     }
 
     #desc .title .line {
