@@ -17,6 +17,9 @@ import newslist from './components/news/newslist.vue';
 import newsinfo from './components/news/newsinfo.vue';
 import photolist from './components/photo/photolist.vue';
 import photoinfo from './components/photo/photoinfo.vue';
+import goodlist from './components/goods/goodlist.vue';
+import goodinfo from './components/goods/goodinfo.vue';
+import gooddesc from './components/goods/gooddesc.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
@@ -27,7 +30,10 @@ var router = new vueRouter({
         {path: '/news/newslist', component: newslist},
         {path: '/news/newsinfo/:id', component: newsinfo},
         {path: '/photo/photolist', component: photolist},
-        {path: '/photo/photoinfo/:id', component: photoinfo}
+        {path: '/photo/photoinfo/:id', component: photoinfo},
+        {path: '/goods/goodlist', component: goodlist},
+        {path: '/goods/goodinfo/:name', component: goodinfo},
+        {path: '/goods/gooddesc/:name', component: gooddesc},
     ]
 });
 
@@ -46,6 +52,7 @@ import '../statics/css/site.css';
 
 // 7.0 将vue-resource 在vue中绑定，自动在vue对象实例上注册一个$http对象就可以使用。
 import vueResource from 'vue-resource';
+
 Vue.use(vueResource);
 
 // 8.0 定义全局过滤器
@@ -56,6 +63,10 @@ Vue.filter('datafmt', function (input, fmtstring) {
 Vue.filter('json', function (input) {
     return JSON.stringify(input);
 });
+
+// 9.0 缩略图
+import VuePreview from 'vue-preview';
+Vue.use(VuePreview);
 
 // 9.0 将App中的内容编译解析出来替换index.html中的<div id="app"></div>
 new Vue({

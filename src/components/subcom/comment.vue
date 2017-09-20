@@ -32,8 +32,9 @@
 
 <script>
     import {Toast} from 'mint-ui';
-    export default{
-        data(){
+
+    export default {
+        data() {
             return {
                 list: [],
                 postconcent: '',
@@ -41,22 +42,22 @@
                 pageindex: 1
             };
         },
-        created(){
+        created() {
             this.getcommentlist(this.pageindex);
         },
         props: ['id'], //用来接收父组件传递过来的ID
         methods: {
-            getmore(){
+            getmore() {
                 this.pageindex++;
             },
-            getcommentlist(pageindex){
+            getcommentlist(pageindex) {
                 pageindex = pageindex || 1;
                 var url = 'http://119.23.236.253:9090/api/getcomments';
                 this.$http.get(url).then(function (res) {
                     this.list = this.list.concat(res.body);
                 });
             },
-            postcomment(){
+            postcomment() {
                 if (this.postconcent.trim().length <= 0) {
                     Toast('评论内容不能为空!');
                     return;
@@ -102,6 +103,11 @@
         font-size: 15px;
         background-color: rgba(0, 0, 0, 0.1);
         padding: 5px;
+        font-size: 12px;
+    }
+
+    .mui-table-view-cell {
+        font-size: 14px;
     }
 </style>
 

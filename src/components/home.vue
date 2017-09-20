@@ -2,11 +2,12 @@
 
     <div id="tmpl">
         <!--1.0 Mint UI 轮播图-->
-        <mt-swipe :auto="2000">
+        <!--<mt-swipe :auto="2000">
             <mt-swipe-item v-for="item in list">
                 <img :src="item.img">
             </mt-swipe-item>
-        </mt-swipe>
+        </mt-swipe>-->
+        <slide :imgs="list"></slide>
 
         <!--2.0 MUI实现导航-->
         <div class="mui-content">
@@ -24,7 +25,7 @@
                     </router-link>
                 </li>
                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <router-link to="/goods/goodslist">
+                    <router-link to="/goods/goodlist">
                         <span class="mui-icon mui-icon-chatbubble"></span>
                         <div class="mui-media-body">商品购买</div>
                     </router-link>
@@ -53,9 +54,13 @@
 </template>
 
 <script>
-    import {Toast} from 'mint-ui';
+    import slide from './subcom/slide.vue';
     import common from '../kits/common.js';
+    import {Toast} from 'mint-ui';
     export default({
+        components: {
+            slide
+        },
         data(){
             return {
                 list: []
@@ -83,20 +88,7 @@
 </script>
 
 <style scoped>
-    .mint-swipe {
-        height: 250px;
-    }
 
-    .mint-swipe-item {
-        background: blanchedalmond;
-        width: 100%;
-        height: 250px;
-    }
-
-    .mint-swipe-item img {
-        width: 100%;
-        height: 250px;
-    }
 
     .mui-content, .mui-content ul {
         background-color: white;
@@ -143,7 +135,5 @@
     .mui-icon-phone:before {
         background-image: url("../../statics/imgs/6.png");
     }
-
-
 </style>
 

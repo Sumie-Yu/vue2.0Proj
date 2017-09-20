@@ -15,10 +15,11 @@
             <!--2)图片缩略图-->
             <div class="mui-content">
                 <ul class="mui-table-view mui-grid-view mui-grid-9">
-                    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                        <a href="#">
-                            <img src="http://images.meishij.net/p/20121112/65907b2c9c55b96276aeed7f940ab981.jpg">
-                        </a>
+                    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"
+                        v-for="(item, index) in imglist">
+                        <img class="preview-img"
+                             :src="item.img||'http://images.meishij.net/p/20121112/d4aa2da5515f82b9ef9fd4b69ae1e6af.jpg'"
+                             @click="$preview.open(index, imglist)">
                     </li>
                 </ul>
             </div>
@@ -35,29 +36,45 @@
     import comment from '../subcom/comment.vue';
     import common from '../../kits/common'
     import {Toast} from 'mint-ui';
-    export default{
+
+    export default {
         components: {
             comment
         },
-        data(){
+        data() {
             return {
                 id: 0,
-                count: 0,
                 date: new Date(),
-                photoinfo: {}
+                photoinfo: {},
+                imglist: []
             };
         },
-        created(){
+        created() {
             this.id = this.$route.params.id;
             this.getinfo();
+            this.getimgs();
         },
         methods: {
             /*获取图片详细描述数据*/
-            getinfo(){
+            getinfo() {
                 var url = common.apidomaindetail + '&id=' + this.id;
                 this.$http.get(url).then(function (response) {
                         var body = response.body;
                         this.photoinfo = body.showapi_res_body.details;
+                    }
+                )
+            },
+            getimgs() {
+                var url = common.apidomaindetail + '&id=' + this.id;
+                this.$http.get(url).then(function (response) {
+                        var body = response.body;
+                        body.showapi_res_body.stepitem.forEach(function (item) {
+                            var img = document.createElement('img');
+                            img.src = item.img;
+                            item.h = img.height * 2;
+                            item.w = img.width * 2;
+                        })
+                        this.imglist = body.showapi_res_body.stepitem;
                     }
                 )
             }
