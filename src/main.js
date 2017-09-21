@@ -20,6 +20,7 @@ import photoinfo from './components/photo/photoinfo.vue';
 import goodlist from './components/goods/goodlist.vue';
 import goodinfo from './components/goods/goodinfo.vue';
 import gooddesc from './components/goods/gooddesc.vue';
+import goodcomment from './components/goods/goodcomment.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
@@ -32,8 +33,9 @@ var router = new vueRouter({
         {path: '/photo/photolist', component: photolist},
         {path: '/photo/photoinfo/:id', component: photoinfo},
         {path: '/goods/goodlist', component: goodlist},
-        {path: '/goods/goodinfo/:name', component: goodinfo},
-        {path: '/goods/gooddesc/:name', component: gooddesc},
+        {path: '/goods/goodinfo/:id', component: goodinfo},
+        {path: '/goods/gooddesc/:listid', component: gooddesc},
+        {path: '/goods/goodcomment/:listid', component: goodcomment},
     ]
 });
 

@@ -5,7 +5,7 @@
             <ul class="mui-table-view mui-grid-view">
                 <li v-for="item in list"
                     class="mui-table-view-cell mui-media mui-col-xs-6">
-                    <router-link v-bind="{to:'/goods/goodinfo/'+ item.name}">
+                    <router-link v-bind="{to:'/goods/goodinfo/'+ item.id}">
                         <img class="mui-media-object" :src="item.img">
                         <div class="mui-media-body" v-text="item.name"></div>
                         <div class="desc">

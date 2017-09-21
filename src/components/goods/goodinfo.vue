@@ -2,18 +2,21 @@
     <div id="tmpl">
         <!--1.0商品轮播图-->
         <div class="slide">
-            <slide :imgs="imgs"></slide>
+            <slide :imgs="info.stepitem"></slide>
         </div>
 
         <!--2.0实现商品购买区域-->
         <div id="buy">
-            <h3 v-text="info.name"></h3>
+            <h3 v-text="info.details.name"></h3>
             <p class="line"></p>
             <ul>
                 <li class="price">市场价：<s>￥39.9</s>
                     销售价：<span>￥35.9</span>
                 </li>
-                <li>购买数量：</li>
+                <li class="inputli">购买数量：
+                    <inputNumber @dataobj="getcount"
+                                 class="inputnumber"></inputNumber>
+                </li>
                 <li>
                     <mt-button type="primary" size="small">立即购买</mt-button>
                     <mt-button type="danger" size="small">加入购物车</mt-button>
@@ -24,19 +27,20 @@
             <h4>商品参数</h4>
             <p class="line"></p>
             <ul>
-                <li>食品原料：{{ info.marinade }}</li>
-                <li>食品描述：{{ info.cpdes}}</li>
+                <li>食品原料：{{ info.details.marinade }}</li>
+                <li>食品描述：{{ info.details.cpdes}}</li>
                 <li>上架时间：{{ctime | datafmt('YYYY-MM-DD HH:mm:ss')}}</li>
             </ul>
         </div>
         <!--3.0图文详情-->
         <!--4.0商品评论-->
         <div id="other">
-            <router-link v-bind="{to:'/goods/gooddesc/'+ info.name}">
+            <router-link v-bind="{to:'/goods/gooddesc/'+ this.listid}">
                 <mt-button class="imgdesc" type="primary" size="large">图文详情</mt-button>
             </router-link>
-            <mt-button type="danger" size="large">商品评论</mt-button>
-
+            <router-link v-bind="{to:'/goods/goodcomment/'+ this.listid}">
+                <mt-button type="danger" size="large">商品评论</mt-button>
+            </router-link>
         </div>
     </div>
 </template>
@@ -44,34 +48,49 @@
 <script>
     import slide from '../subcom/slide.vue';
     import common from '../../kits/common.js';
-    export default{
+    import inputNumber from '../subcom/inputNumber.vue';
+
+    export default {
         components: {
-            slide
+            slide,
+            inputNumber
         },
-        data(){
+        data() {
             return {
-                name: '',
-                imgs: [],
+                list: [],
+                listid: 0,
                 info: {},
-                ctime: new Date()
+                ctime: new Date(),
+                inputcount: 1
             };
         },
-        created(){
-            this.name = this.$route.params.name;
-            this.getgoodimgs();
+        created() {
+            this.id = this.$route.params.id;
             this.getgoodinfo();
+            this.getgoodid();
+            this.listid;
         },
         methods: {
-            getgoodimgs(){
-                var url = common.apidomaindetail + '&name=' + this.name;
+            getcount(count) {
+                this.inputcount = count;
+            },
+            getgoodinfo() {
+                var url = common.apidomaindetail + '&id=' + this.id;
                 this.$http.get(url).then(function (res) {
-                    this.imgs = res.body.showapi_res_body.stepitem;
+                    this.info = res.body.showapi_res_body;
                 });
             },
-            getgoodinfo(){
-                var url = common.apidomaindetail + '&name=' + this.name;
+            getgoodid() {
+                var url = common.apidomain;
                 this.$http.get(url).then(function (res) {
-                    this.info = res.body.showapi_res_body.details;
+                    this.list = res.body.showapi_res_body.list;
+                    for (var i = 0; i < this.list.length; i++) {
+                        if (this.list[i].name == this.info.details.name) {
+                            this.listid = this.list[i].id;
+                        }
+                    }
+                    console.log('A' + this.info.details.name);
+                    console.log('B' + this.list[0].name);
                 });
             }
         }
@@ -138,6 +157,16 @@
     #other .imgdesc {
         margin-bottom: 20px;
 
+    }
+
+    .inputli {
+        position: relative;
+    }
+
+    .inputnumber {
+        position: absolute;
+        left: 110px;
+        top: 5px;
     }
 
 </style>
