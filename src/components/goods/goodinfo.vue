@@ -14,12 +14,19 @@
                     销售价：<span>￥35.9</span>
                 </li>
                 <li class="inputli">购买数量：
+
+
+
+
                     <inputNumber @dataobj="getcount"
                                  class="inputnumber"></inputNumber>
+                    <transition name="show" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+                        <div class="ball" v-show="isshow"></div>
+                    </transition>
                 </li>
                 <li>
                     <mt-button type="primary" size="small">立即购买</mt-button>
-                    <mt-button type="danger" size="small">加入购物车</mt-button>
+                    <mt-button type="danger" size="small" @click="toshopcount">加入购物车</mt-button>
                 </li>
             </ul>
         </div>
@@ -49,6 +56,8 @@
     import slide from '../subcom/slide.vue';
     import common from '../../kits/common.js';
     import inputNumber from '../subcom/inputNumber.vue';
+    import {vm, COUNTSTR} from '../../kits/vm.js';
+    import {setItem, KEY, valueObj} from '../../kits/localStorage';
 
     export default {
         components: {
@@ -61,7 +70,8 @@
                 listid: 0,
                 info: {},
                 ctime: new Date(),
-                inputcount: 1
+                inputcount: 1,
+                isshow: false
             };
         },
         created() {
@@ -85,14 +95,39 @@
                 this.$http.get(url).then(function (res) {
                     this.list = res.body.showapi_res_body.list;
                     for (var i = 0; i < this.list.length; i++) {
-                        if (this.list[i].name == this.info.details.name) {
+                        if (this.list[i][name] == this.info.details[name]) {
                             this.listid = this.list[i].id;
+                        } else {
+                            this.listid = this.list[2].id;
                         }
                     }
                     console.log('A' + this.info.details.name);
                     console.log('B' + this.list[0].name);
                 });
-            }
+            },
+            toshopcount(){
+                /*1.0 触发事件*/
+                vm.$emit(COUNTSTR, this.inputcount);
+                /*2.0 将数据保存到localStorage中*/
+                valueObj.goodsid = this.id;
+                valueObj.count = this.inputcount;
+                setItem(valueObj);
+                /*3.0 实现小球动画*/
+                this.isshow = !this.isshow;
+            },
+            /*动画方法*/
+            beforeEnter(el){
+                el.style.transform = 'translate(0px,0px)';
+
+            },
+            enter(el, done){
+                el.offsetWidth;
+                el.style.transform = 'translate(75px,366px)';
+                done();
+            },
+            afterEnter(el){
+                this.isshow = !this.isshow;
+            },
         }
     };
 </script>
@@ -167,6 +202,18 @@
         position: absolute;
         left: 110px;
         top: 5px;
+    }
+
+    .ball {
+        background: red;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        position: absolute;
+        left: 150px;
+        top: 10px;
+        transition: all 0.4s ease;
+        z-index: 1000;
     }
 
 </style>

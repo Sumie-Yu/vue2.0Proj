@@ -12,7 +12,6 @@ import vueRouter from 'vue-router';
 Vue.use(vueRouter);
 // 3.0.2 导入路由规则对应的组件对象
 import home from './components/home.vue';
-import shopcar from './components/shopcar/shopcar.vue';
 import newslist from './components/news/newslist.vue';
 import newsinfo from './components/news/newsinfo.vue';
 import photolist from './components/photo/photolist.vue';
@@ -21,13 +20,13 @@ import goodlist from './components/goods/goodlist.vue';
 import goodinfo from './components/goods/goodinfo.vue';
 import gooddesc from './components/goods/gooddesc.vue';
 import goodcomment from './components/goods/goodcomment.vue';
+import shopcar from './components/shopcar/shopcar.vue';
 // 3.0.3 定义路由规则
 var router = new vueRouter({
     linkActiveClass: 'mui-active', //改变路由激活时的class名称
     routes: [
         {path: '/', redirect: '/home'},
         {path: '/home', component: home},
-        {path: '/shopcar', component: shopcar},
         {path: '/news/newslist', component: newslist},
         {path: '/news/newsinfo/:id', component: newsinfo},
         {path: '/photo/photolist', component: photolist},
@@ -36,6 +35,7 @@ var router = new vueRouter({
         {path: '/goods/goodinfo/:id', component: goodinfo},
         {path: '/goods/gooddesc/:listid', component: gooddesc},
         {path: '/goods/goodcomment/:listid', component: goodcomment},
+        {path: '/shopcar/shopcar', component: shopcar}
     ]
 });
 

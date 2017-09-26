@@ -11,7 +11,11 @@
 <script>
     export default{
         props: ['imgs']
-
+       /* data(){
+            return {
+                imgs: []
+            };
+        }*/
     };
 </script>
 
