@@ -44,6 +44,7 @@ module.exports = {
         presets: ['es2015'],  // 配置将es6语法转换成es5语法
         plugins: ['transform-runtime']
     },
+    devtool: 'source-map',
     plugins: [
         new htmlwp({
             title: '首页',  //生成的页面标题<head><title>首页</title></head>
